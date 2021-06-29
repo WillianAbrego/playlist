@@ -4,9 +4,8 @@ var dbConn = require("./../../config/db.config");
 //Playlist object create
 var Playlist = function (playlist) {
   //  this.id = playlist.id;
-  this.nombre_Playlist = playlist.nombre_Playlist;
-  this.anio = playlist.anio;
-  this.id_artista = playlist.id_artista;
+  this.nombre = playlist.nombre;
+  this.visibilidad = playlist.visibilidad;
 };
 Playlist.create = function (newAlb, result) {
   dbConn.query("INSERT INTO playlist set ?", newAlb, function (err, res) {
@@ -42,8 +41,8 @@ Playlist.findAll = function (result) {
 };
 Playlist.update = function (id, playlist, result) {
   dbConn.query(
-    "UPDATE playlist SET nombre_Playlist=?,anio=?,id_artista=? WHERE id=?",
-    [playlist.nombre_Playlist, playlist.anio, playlist.id_artista, id],
+    "UPDATE playlist SET nombre=?,visibilidad=? WHERE id=?",
+    [playlist.nombre, playlist.visibilidad, id],
     function (err, res) {
       if (err) {
         console.log("error: ", err);

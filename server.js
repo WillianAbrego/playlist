@@ -42,11 +42,13 @@ app.get("/", (req, res) => {
 const artistRoute = require("./src/routes/artist.routes");
 const albumRoute = require("./src/routes/album.routes");
 const cancionRoute = require("./src/routes/cancion.routes");
+const playlistRoute = require("./src/routes/playlist.routes");
 // using as middleware
 //app.use("/api/v1/artista", employeeRoutes);
 app.use("/api/v1/artista", artistRoute);
 app.use("/api/v1/album", albumRoute);
 app.use("/api/v1/cancion", cancionRoute);
+app.use("/api/v1/playlist", playlistRoute);
 // listen for requests
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
