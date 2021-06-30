@@ -20,25 +20,32 @@ Album.create = function (newAlb, result) {
   });
 };
 Album.findById = function (id, result) {
-  dbConn.query("Select * from album where id = ? ", id, function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      result(null, res);
+  dbConn.query(
+    "SELECT album.id, nombre_Album,anio,artista.nombre FROM album INNER JOIN artista on album.id_artista = artista.id  where album.id = ? ",
+    id,
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
     }
-  });
+  );
 };
 Album.findAll = function (result) {
-  dbConn.query("select * from album", function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-    } else {
-      console.log("albuma : ", res);
-      result(null, res);
+  dbConn.query(
+    "SELECT album.id, nombre_Album,anio,artista.nombre FROM album INNER JOIN artista on album.id_artista = artista.id; ",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        console.log("albuma : ", res);
+        result(null, res);
+      }
     }
-  });
+  );
 };
 Album.update = function (id, album, result) {
   dbConn.query(
