@@ -25,7 +25,7 @@ PlaylistDetalle.create = function (newPlay, result) {
 };
 PlaylistDetalle.findById = function (id, result) {
   dbConn.query(
-    "Select * from playlist_detalle where id = ? ",
+    "SELECT playlist_detalle.id,playlist.nombre as nombre_playlist,playlist.visibilidad,cancion.nombre_cancion,cancion.url,album.nombre_Album,album.anio,artista.nombre FROM `playlist_detalle` INNER JOIN playlist on playlist_detalle.id_playlist=playlist.id INNER JOIN cancion on playlist_detalle.id_cancion=cancion.id INNER JOIN album on cancion.id_album=album.id INNER JOIN artista on album.id_artista=artista.id where playlist_detalle.id = ? ",
     id,
     function (err, res) {
       if (err) {
@@ -38,15 +38,18 @@ PlaylistDetalle.findById = function (id, result) {
   );
 };
 PlaylistDetalle.findAll = function (result) {
-  dbConn.query("select * from playlist_detalle", function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-    } else {
-      console.log("playlistdetalle : ", res);
-      result(null, res);
+  dbConn.query(
+    "SELECT playlist_detalle.id,playlist.nombre as nombre_playlist,playlist.visibilidad,cancion.nombre_cancion,cancion.url,album.nombre_Album,album.anio,artista.nombre FROM `playlist_detalle` INNER JOIN playlist on playlist_detalle.id_playlist=playlist.id INNER JOIN cancion on playlist_detalle.id_cancion=cancion.id INNER JOIN album on cancion.id_album=album.id INNER JOIN artista on album.id_artista=artista.id",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        console.log("playlistdetalle : ", res);
+        result(null, res);
+      }
     }
-  });
+  );
 };
 PlaylistDetalle.update = function (id, playlistdetalle, result) {
   dbConn.query(
