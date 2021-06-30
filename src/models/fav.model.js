@@ -18,26 +18,34 @@ Favorito.create = function (newFav, result) {
     }
   });
 };
+//muestra un json con los todas las canciones favoritas de 1 usuario
 Favorito.findById = function (id, result) {
-  dbConn.query("Select * from favorito where id = ? ", id, function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      result(null, res);
+  dbConn.query(
+    "SELECT usuario.id,cancion.nombre_cancion,cancion.url,album.nombre_Album,album.anio,artista.nombre FROM `favorito` INNER JOIN usuario on favorito.id_usuario=usuario.id INNER JOIN cancion on favorito.id_cancion=cancion.id INNER JOIN album on cancion.id_album= album.id INNER JOIN artista on album.id_artista=artista.id where usuario.id = ? ",
+    id,
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
     }
-  });
+  );
 };
 Favorito.findAll = function (result) {
-  dbConn.query("select * from favorito", function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-    } else {
-      console.log("favorito : ", res);
-      result(null, res);
+  dbConn.query(
+    "SELECT usuario.id,cancion.nombre_cancion,cancion.url,album.nombre_Album,album.anio,artista.nombre FROM `favorito` INNER JOIN usuario on favorito.id_usuario=usuario.id INNER JOIN cancion on favorito.id_cancion=cancion.id INNER JOIN album on cancion.id_album= album.id INNER JOIN artista on album.id_artista=artista.id",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        console.log("favorito : ", res);
+        result(null, res);
+      }
     }
-  });
+  );
 };
 Favorito.update = function (id, fav, result) {
   dbConn.query(
