@@ -21,7 +21,7 @@ Album.create = function (newAlb, result) {
 };
 Album.findById = function (id, result) {
   dbConn.query(
-    "SELECT album.id, nombre_Album,anio,artista.nombre FROM album INNER JOIN artista on album.id_artista = artista.id  where album.id = ? ",
+    "SELECT album.id, nombre_Album,anio,artista.nombre FROM album INNER JOIN artista on album.id_artista = artista.id  where id_artista = ? ",
     id,
     function (err, res) {
       if (err) {
