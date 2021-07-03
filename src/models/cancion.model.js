@@ -21,7 +21,7 @@ Cancion.create = function (newCan, result) {
 };
 Cancion.findById = function (id, result) {
   dbConn.query(
-    "SELECT cancion.id,cancion.nombre_cancion,cancion.url, album.nombre_Album, album.anio, artista.nombre FROM `cancion` INNER JOIN album on cancion.id_album=album.id INNER JOIN artista on album.id_artista=artista.id where cancion.id = ? ",
+    "SELECT cancion.id,cancion.nombre_cancion,cancion.url, album.nombre_Album, album.anio, artista.nombre FROM `cancion` INNER JOIN album on cancion.id_album=album.id INNER JOIN artista on album.id_artista=artista.id where album.id = ? ",
     id,
     function (err, res) {
       if (err) {
