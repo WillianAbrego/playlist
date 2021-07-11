@@ -25,7 +25,7 @@ PlaylistDetalle.create = function (newPlay, result) {
 };
 PlaylistDetalle.findById = function (id, result) {
   dbConn.query(
-    "SELECT playlist_detalle.id,playlist.nombre as nombre_playlist,playlist.visibilidad,cancion.nombre_cancion,cancion.url,album.nombre_Album,album.anio,artista.nombre FROM `playlist_detalle` INNER JOIN playlist on playlist_detalle.id_playlist=playlist.id INNER JOIN cancion on playlist_detalle.id_cancion=cancion.id INNER JOIN album on cancion.id_album=album.id INNER JOIN artista on album.id_artista=artista.id where playlist_detalle.id = ? ",
+    "SELECT playlist_detalle.id,playlist.nombre as nombre_playlist,playlist.visibilidad,cancion.nombre_cancion,cancion.url,album.nombre_Album,album.anio,artista.nombre FROM `playlist_detalle` INNER JOIN playlist on playlist_detalle.id_playlist=playlist.id INNER JOIN cancion on playlist_detalle.id_cancion=cancion.id INNER JOIN album on cancion.id_album=album.id INNER JOIN artista on album.id_artista=artista.id where id_playlist = ? ",
     id,
     function (err, res) {
       if (err) {
